@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Registration</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+
+<div class="container text-centre m-5 shadow p-3 mb-5 bg-body rounded">
+    <h1 class="m-4 text-centre">Panel administratora</h1>
+
+
+<table class="table table table-striped" >
+  <thead>
+  <tr class="text-center">
+    <th>Nazwa użytkownika</th>
+    <th>Imię</th>
+    <th>Nazwisko</th>
+    <th>Uprawnienia</th>
+    <th></th>
+  </tr>
+  </thead>
+  <tbody>
+  <tr class="text-center" th:each="user: ${users}">
+    <td th:text="${user.username}"></td>
+    <td th:text="${user.firstName}"></td>
+    <td th:text="${user.lastName}"></td>
+    <td >
+      <p th:each="role: ${user.rolesInString()}" th:text="${role}"></p>
+    </td>
+    <td>
+      <a th:if="${user.rolesInString().contains('ADMIN')}" th:href="|/admin/removeadmin?id=${user.id}|" class="text-dark" >Odbierz Administratora</a>
+      <a th:unless="${user.rolesInString().contains('ADMIN')}" th:href="|/admin/giveadmin?id=${user.id}|" class="text-dark" >Nadaj Administratora</a>
+    </td>
+  </tr>
+  </tbody>
+</table>
+  <a href="/"class="badge rounded-pill p-3 mb-2 bg-secondary text-white mt-5 ">Powrót do strony głównej</a></br>
+</div>
+</body>
+</html>
