@@ -13,16 +13,14 @@ import java.util.Optional;
 @RequestMapping("/admin")
 class AdminController {
     private final UserService userService;
-    private final UserCredentialsDtoMapper userCredentialsDtoMapper;
 
-    public AdminController(UserService userService, UserRoleRepository userRoleRepository, UserCredentialsDtoMapper userCredentialsDtoMapper) {
+    public AdminController(UserService userService) {
         this.userService = userService;
-        this.userCredentialsDtoMapper = userCredentialsDtoMapper;
     }
 
     @GetMapping
     String adminPanel(Model model) {
-        List<UserBasic> allUser = userService.findAllUsers();
+        List<UserBasic> allUser = userService.findWithoutCurrentUser();
         Optional<UserRole> adminRole = userService.findAdminRole();
         if (adminRole.isPresent()) {
             String role = adminRole.get().getName();

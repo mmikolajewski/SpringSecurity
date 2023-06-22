@@ -1,5 +1,6 @@
 package pl.javastart.demo.user;
 
+import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -7,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import java.util.List;
 import java.util.NoSuchElementException;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 @Service
 public class UserService {
@@ -41,8 +43,12 @@ public class UserService {
         userRepository.save(userBasic);
     }
 
-    public List<UserBasic> findAllUsers() {
-        return userRepository.findAll();
+    public List<UserBasic> findWithoutCurrentUser() {
+        Authentication currentUser = SecurityContextHolder.getContext().getAuthentication();
+        return userRepository.findAll()
+                .stream()
+                .filter(userBasic -> !userBasic.getUsername().equals(currentUser.getName()))
+                .collect(Collectors.toList());
     }
     public Optional<UserRole> findAdminRole() {
         return userRoleRepository.findByName(USER_ADMIN);

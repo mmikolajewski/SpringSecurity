@@ -2,12 +2,11 @@
 <html lang="pl" xmlns:th="https://www.thymeleaf.org">
 <head>
   <meta charset="UTF-8">
-  <title>Registration</title>
+  <title>Użytkownik</title>
   <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-MrcW6ZMFYlzcLA8Nl+NtUVF0sA7MsXsP1UyJoMp4YLEuNSfAP+JcXn/tWtIaxVXM" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.2/dist/umd/popper.min.js" integrity="sha384-IQsoLXl5PILFhosVNubq5LC7Qb9DXgDA9i+tQ8Zj3iwWAwPtgFTxbJ8NT4GN1R8p" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.min.js" integrity="sha384-cVKIPhGWiC2Al4u+LWgxfKTRIcfu0JTxR+EQDz/bgldoEyl4H0zUF0QKbrJ0EcQF" crossorigin="anonymous"></script>
-
 </head>
 <body>
 <div class="container mt-5 shadow p-3 mb-5 bg-body rounded" th:object="${currentUser}">
@@ -31,7 +30,7 @@
       <td>
         <p>
           <button class="btn btn-primary" type="button" data-bs-toggle="collapse" data-bs-target="#collapseExample" aria-expanded="false" aria-controls="collapseExample">
-            Zmień dane urzytkownika
+            Zmień dane użytkownika
           </button>
         </p>
       </td>
@@ -46,7 +45,7 @@
         <input th:field="*{id}" hidden="">
         <div class="mb-3">
           <label for="firsName" class="form-label">Imię</label>
-          <input th:field="*{firstName}" id="firsName" type="text" name="newFirstName" placeholder="Nowe imię">
+          <input th:field="*{firstName}" id="firsName"  type="text" name="newFirstName" placeholder="Nowe imię">
         </div>
         <div class="mb-3">
           <label for="lastName" class="form-label">Nazwisko</label>
@@ -54,7 +53,7 @@
         </div>
         <div class="mb-3">
           <label for="password" class="form-label">Hasło</label>
-          <input th:field="*{password}"id="password" type="text" name="newPassword" placeholder="Nowe hasło">
+          <input th:field="*{password}"id="password" autocomplete="off" type="password" name="newPassword" placeholder="Nowe hasło">
         </div>
 
 

@@ -15,17 +15,16 @@ public class RegistrationController {
     }
 
     @GetMapping("/register")
-    String registerForm(Model model, @RequestParam(value = "attr", required = false) String attr) {
+    String registerForm(Model model) {
         UserDto user = new UserDto();
         model.addAttribute("user", user);
-        model.addAttribute("attr", attr);
         return "registration-form";
     }
 
     @PostMapping("/register")
     String register(UserDto userDto, RedirectAttributes ra) {
         userService.register(userDto);
-        ra.addAttribute("attr", "attrVal");
-        return "redirect:/register";
+        ra.addAttribute("register", "success");
+        return "redirect:/login";
     }
 }
