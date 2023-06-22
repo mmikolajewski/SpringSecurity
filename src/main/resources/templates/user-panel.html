@@ -42,8 +42,8 @@
   </p>
   <div class="collapse" id="collapseExample">
     <div class="card card-body p-3 mb-2 bg-success text-black shadow p-3 mb-5 bg-body rounded">
-      <input th:field="*{id}" hidden="">
       <form th:action="@{/change-account-details}" th:field="${userToEdit}" method="post">
+        <input th:field="*{id}" hidden="">
         <div class="mb-3">
           <label for="firsName" class="form-label">Imię</label>
           <input th:field="*{firstName}" id="firsName" type="text" name="newFirstName" placeholder="Nowe imię">
