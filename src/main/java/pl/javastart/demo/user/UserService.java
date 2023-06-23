@@ -74,26 +74,40 @@ public class UserService {
             user.removeRole(userRole);
         }
     }
-    public UserBasic getCurrentUser() {
+    public UserDetailsDto getCurrentUserDetails() {
         String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
         UserBasic userBasic = userRepository.findByUsername(currentUsername).orElseThrow();
-        return userBasic;
+        UserDetailsDto userDetailsDto = new UserDetailsDto(userBasic.getId(),userBasic.getUsername(), userBasic.getFirstName(), userBasic.getLastName());
+        return userDetailsDto;
 
     }
     @Transactional
-    public void updateUserDetails(UserBasic newUser) {
+    public void updateUserDetails(UserDetailsDto newUser) {
         Optional<UserBasic> userById = userRepository.findById(newUser.getId());
 
         if (userById.isPresent()) {
             UserBasic user = userById.get();
             user.setFirstName(newUser.getFirstName());
             user.setLastName(newUser.getLastName());
-            String passwordHash = passwordEncoder.encode(newUser.getPassword());
-            user.setPassword(passwordHash);
         }
     }
     public Optional<UserCredentialsDto> findCredentialsByEmail(String username) {
         return userRepository.findByUsername(username)
                 .map(userCredentialsDtoMapper::map);
+    }
+    @Transactional
+    public void updateUserPassword(UserPasswordDto newUserPasswordDto) {
+        Optional<UserBasic> userById = userRepository.findById(newUserPasswordDto.getId());
+        if (userById.isPresent()) {
+            UserBasic user = userById.get();
+            String passwordHash = passwordEncoder.encode(newUserPasswordDto.getPassword());
+            user.setPassword(passwordHash);
+        }
+    }
+
+    public UserPasswordDto getCurrentUserWithPassword() {
+        String currentUsername = SecurityContextHolder.getContext().getAuthentication().getName();
+        UserBasic userBasic = userRepository.findByUsername(currentUsername).orElseThrow();
+        return new UserPasswordDto(userBasic.getId(), userBasic.getPassword());
     }
 }
