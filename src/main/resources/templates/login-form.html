@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html lang="pl" xmlns:th="https://www.thymeleaf.org">
+<head>
+  <meta charset="UTF-8">
+  <title>Logowanie</title>
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@4.3.1/dist/css/bootstrap.min.css"
+        integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+</head>
+<body>
+<div class="container text-center form mt-4 shadow p-3 mb-5 bg-body rounded">
+  <img th:src="@{https://img.freepik.com/premium-vector/cyber-security-padlock-key-alert-worm-safety-technology_24908-13278.jpg?w=2000}" alt="this slowpoke moves"  width="250" /></br>
+  <h2 th:if="${register}" th:text="Zarejestrowano">Zarejestrowano poprawnie</h2>
+
+  <div th:if="${param.error}" class="alert alert-danger mt-2">NIEPOPRAWNE DANE LOGOWANIA</div>
+
+  <h1 class="login-header">Zaloguj się</h1>
+  <i class="fa-solid fa-lock fa-10x lock-icon"></i>
+  <form class="login-form" th:action="@{/login}" method="post">
+    <input name="username" placeholder="nazwa użytkownika" class="form-item">
+    <input name="password" placeholder="hasło" type="password" class="form-item">
+    <button type="submit" class="form-item">Zaloguj się</button>
+  </form>
+  <a href="/"class="badge rounded-pill p-3 mb-2 bg-secondary text-white mt-5">Powrót do strony głównej</a></br>
+</div>
+
+</body>
+</html>
